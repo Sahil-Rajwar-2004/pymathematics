@@ -1,3 +1,3 @@
 author = "Sahil Rajwar"
-version = "2023.04.16"
+version = "2023.4.17"
 homepage = "https://github.com/Sahil-Rajwar-2004/pymathematics"
