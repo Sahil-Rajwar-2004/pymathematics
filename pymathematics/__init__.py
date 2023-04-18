@@ -328,8 +328,13 @@ def mean_sqrd_error(actual:list,predicted:list) -> int|float:
     errors = [(actual[i]-predicted[i])**2 for i in range(len(actual))]
     return summation(errors)/len(actual)
 
-def mean_error(actual:list,expected:list) -> list:
-    pass
+def errors(actual:list,predicted:list) -> list:
+    if len(actual) != len(predicted):
+        raise ValueError("length of actual and predicted data aren't equal!")
+    return [actual[x]-predicted[x] for x in range(len(actual))]
+
+def mean_error(actual:list,predicted:list) -> int|float:
+    return mean(errors(actual,predicted))
 
 def power(base:int|float,exponent:int|float) -> int|float:
     return base**exponent
