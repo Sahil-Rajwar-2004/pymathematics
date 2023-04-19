@@ -28,6 +28,64 @@ class vector:
 
     def angle_of_projection(vector1:list,vector2:list) -> float:
         return f"arccos({vector.dot_product(vector1,vector2)}/{(vector.magnitude(vector1)*vector.magnitude(vector2))})"
+    
+class matrix:
+    def determinant(matrix_):
+        if len(matrix_) == 1:
+            return matrix_[0][0]
+        elif len(matrix_) == 2:
+            return matrix_[0][0]*matrix_[1][1]-matrix_[0][1]*matrix_[1][0]
+        det = 0
+        for x in range(len(matrix_)):
+            minor = []
+            for y in range(1,len(matrix_)):
+                row = []
+                for z in range(len(matrix_)):
+                    if z != x:
+                        row.append(matrix_[y][z])
+                minor.append(row)
+            det += (-1)**x*matrix_[0][x]*matrix.determinant(minor)
+        return det
+    
+    def inverse(matrix_):
+        identity = [[0 if x != y else 1 for y in range(len(matrix_))] for x in range(len(matrix_))]
+        for x in range(len(matrix_)):
+            pivot = matrix_[x][x]
+            for y in range(len(matrix_)):
+                matrix_[x][y] /= pivot
+                identity[x][y] /= pivot
+            for y in range(len(matrix_)):
+                if x != y:
+                    factor = matrix_[y][x]
+                    for k in range(len(matrix_)):
+                        matrix_[y][k] -= factor * matrix_[x][k]
+                        identity[y][k] -= factor * identity[x][k]
+        return identity
+    
+    def transpose(matrix_):
+        rows = len(matrix_)
+        cols = len(matrix_[0])
+        res = [[0 for y in range(rows)]for x in range(cols)]
+        for x in range(rows):
+            for y in range(cols):
+                res[y][x] = matrix_[x][y]   
+        return res
+    
+    def product(matrix1,matrix2):
+        rows1 = len(matrix1)
+        cols1 = len(matrix1[0])
+        rows2 = len(matrix2)
+        cols2 = len(matrix2[0])
+        if cols1 != rows2:
+            raise ValueError("number of columns of a first matrix should be equal to the rows of the second matrix")
+        result = [[0 for y in range(cols2)] for x in range(rows1)]
+        for x in range(rows1):
+            for y in range(cols2):
+                dot_product = 0
+                for z in range(cols1):
+                    dot_product += matrix1[x][z]*matrix2[z][y]
+                result[x][y] = dot_product
+        return result
 
 def factorial(number: int) -> int:
     if number == 0:
@@ -80,14 +138,16 @@ def sqrt(number:int|float) -> float:
         flag = (flag + number/flag)/2
     return round(flag,5)
 
-def quadratic_roots(a:int|float,b:int|float,c:int|float) -> int|float:
-    D = b*b-4*a*c
+def quadratic_roots(coefficients:list) -> list:
+    if len(coefficients) != 3:
+        raise ValueError("there should be only 3 coefficients!")
+    D = coefficients[0]**2-4*coefficients[0]*coefficients[2]
     if D < 0:
-        x1 = f"{-b} + {sqrt(absolute(D))}i"
-        x2 = f"{-b} - {sqrt(absolute(D))}i"
-        raise Warning(f"discriminant was negative! {[x1,x2]}")
-    x1 = -b+sqrt(D)
-    x2 = -b-sqrt(D)
+        x1 = f"{-coefficients[1]} + {sqrt(absolute(D))}i"
+        x2 = f"{-coefficients[1]} - {sqrt(absolute(D))}i"
+        return [x1,x2]
+    x1 = -coefficients[1]+sqrt(D)
+    x2 = -coefficients[1]-sqrt(D)
     return [x1,x2]
 
 def log(number:int|float) -> float:
