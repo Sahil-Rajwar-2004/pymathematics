@@ -2,9 +2,10 @@ from .info import (
     author,version,homepage
 )
 
-author = author
-version = version
-homepage = homepage
+class about:
+    author = author
+    version = version
+    homepage = homepage
 
 class constants:
     pi = 3.1415926535897932384626433832795
@@ -151,8 +152,11 @@ def quadratic_roots(coefficients:list) -> list:
     return [x1,x2]
 
 def log(number:int|float) -> float:
+    """
+    `log(number) to the base 10`
+    """
     if number <= 0:
-        return "invalid input!"
+        raise ValueError("domain error")
     else:
         n = 0
         while number >= 10:
@@ -176,7 +180,20 @@ def log(number:int|float) -> float:
 
 
 def ln(number:int|float) -> int|float:
+    """
+    `log(number) to the base e`
+    """
+    if number <= 0:
+        raise ValueError("domain error")
     return 2.303*log(number)
+
+def logn(number:int|float,base:int|float = constants.e) -> int|float:
+    """
+    `log(number) to the base n(user defined)`
+    """
+    if number <= 0 or base <= 0 or base == 1:
+        raise ValueError("domain error")
+    return 2.303*log(number)/(2.303*log(base))
 
 def summation(array:list) -> list:
     sigma = 0
