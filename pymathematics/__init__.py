@@ -29,7 +29,7 @@ class vector:
 
     def angle_of_projection(vector1:list,vector2:list) -> float:
         return f"arccos({vector.dot_product(vector1,vector2)}/{(vector.magnitude(vector1)*vector.magnitude(vector2))})"
-    
+
 class matrix:
     def determinant(matrix_):
         if len(matrix_) == 1:
@@ -283,6 +283,17 @@ def variance(array:list,kind:str = "population") -> int|float:
     else:
         raise ValueError(f"invalid input {kind}! input should be whether 'population' or 'sample'")
     return summation((x - mean(array))**2 for x in array)/d
+
+def skewness(array:list) -> float:
+    if len(array) == 0:
+        raise ValueError("length of an array shouldn't be 0")
+    return summation((x - mean(array))**3 for x in array)/(len(array)*standard_deviation(array,"population")**3)
+
+def kurtosis(array:list) -> float:
+    if len(array) == 0:
+        raise ValueError("length of an array shouldn't be 0")
+    moment = summation((x - mean(array))**4 for x in array)/len(array)
+    return (moment/variance(array)**2)-3
 
 def mode(array:list) -> int|float:
     freq = {}
