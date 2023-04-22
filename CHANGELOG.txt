@@ -1,5 +1,5 @@
 +~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-| current version-2023.4.21 |
+| current version-2023.4.22 |
 +~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 
 
@@ -62,4 +62,9 @@ release v-(2023.4.21)-{11:29 PM}
 CHANGES:
     1. kurtosis() added
     2. skewness() added
+---------------------------------
+---------------------------------
+release v-(2023.4.22)-{12:58 PM}
+CHANGES:
+    1. sets class added (union,subset,belongsto,toset,intercept) functions
 ---------------------------------
