@@ -88,6 +88,59 @@ class matrix:
                 result[x][y] = dot_product
         return result
 
+class sets:
+    def toset(A:list) -> list:
+        new_set = []
+        for x in A:
+            if x not in new_set:
+                new_set.append(x)
+        return new_set
+
+    def union(A:list,B:list) -> list:
+        A = sets.toset(A)
+        B = sets.toset(B)
+        for x in B:
+            if x not in A:
+                A.append(x)
+        return quick_sort(A)
+
+    def intercept(A:list,B:list) -> list:
+        res = []
+        A = sets.toset(A)
+        B = sets.toset(B)
+        for i in B:
+            if i in A:
+                res.append(i)
+        if len(res) == 0:
+            return None
+        return quick_sort(res)
+
+    def subset(A:list,B:list) -> bool:
+        A = sets.toset(A)
+        B = sets.toset(B)
+        for i in A:
+            if i not in B:
+                return False
+        return True
+
+    def belongsto(A:list,number:int,at:bool = False) -> (int|bool):
+        A = sets.toset(A)
+        if number in A:
+            if not at:
+                return True
+            else:
+                return A.index(number)
+        return False
+
+    def multiply(A:list,B:list) -> list:
+        A = sets.toset(A)
+        B = sets.toset(B)
+        res = []
+        for i in A:
+            for j in B:
+                res.append([i,j])
+        return res
+
 def factorial(number: int) -> int:
     if number == 0:
         return 1
