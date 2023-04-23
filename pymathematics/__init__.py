@@ -10,21 +10,31 @@ class about:
 class constants:
     pi = 3.1415926535897932384626433832795
     e = 2.7182818284590452353602874713527
+    inf = infinity = float("inf")
+    nan = NaN = float("nan")
 
 class vector:
     def cross_product(vector1:list,vector2:list) -> int|float:
+        if len(vector1) != 3 or len(vector2) != 3:
+            raise ValueError("vector should have 3 directions")
         return [vector1[1]*vector2[2]-vector2[1]*vector1[2],-(vector1[0]*vector2[2]-vector2[0]*vector1[2]),vector1[0]*vector2[1]-vector2[0]*vector1[1]]
 
     def dot_product(vector1:list,vector2:list) -> int|float:
+        if len(vector1) != 3 or len(vector2) != 3:
+            raise ValueError("vector should have 3 directions")
         return vector1[0]*vector2[0]+vector1[1]*vector2[1]+vector1[2]*vector2[2]
 
     def magnitude(vector) -> int|float:
+        if len(vector) != 3:
+            raise ValueError("vector should have 3 directions")
         return sqrt(vector[0]**2+vector[1]**2+vector[2]**2)
 
     def projection(vector1:list,vector2:list) -> int|float:
         """
         `projection of vector1 to vector2`
         """
+        if len(vector1) != 3 or len(vector2) != 3:
+            raise ValueError("vector should have 3 directions")
         return vector.dot_product(vector1,vector2)/vector.magnitude(vector2)
 
     def angle_of_projection(vector1:list,vector2:list) -> float:
@@ -104,7 +114,7 @@ class sets:
                 A.append(x)
         return quick_sort(A)
 
-    def intercept(A:list,B:list) -> list:
+    def intersect(A:list,B:list) -> list:
         res = []
         A = sets.toset(A)
         B = sets.toset(B)
@@ -190,7 +200,7 @@ def sqrt(number:int|float) -> float:
     flag = number/2
     while absolute(flag*flag - number) > 0.00001:
         flag = (flag + number/flag)/2
-    return round(flag,5)
+    return flag
 
 def quadratic_roots(coefficients:list) -> list:
     if len(coefficients) != 3:

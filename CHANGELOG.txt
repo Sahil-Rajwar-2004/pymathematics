@@ -1,5 +1,5 @@
 +~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-| current version-2023.4.22 |
+| current version-2023.4.23 |
 +~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 
 
@@ -67,4 +67,10 @@ CHANGES:
 release v-(2023.4.22)-{12:58 PM}
 CHANGES:
     1. sets class added (union,subset,belongsto,toset,intercept) functions
+---------------------------------
+---------------------------------
+release v-(2023.4.23)-{11:27 AM}
+CHANGES:
+    1. changes in vector class
+    2. nan and inf constants were added
 ---------------------------------
