@@ -1,6 +1,6 @@
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-| current version-2023.4.23.1 |
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
++~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+| current version-2023.4.24 |
++~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 
 
 ---------------------------------
@@ -80,4 +80,12 @@ CHANGES:
     1. matrix.ismatrix() added
     2. matrix.size() added
     3. matrix.shape() added
+---------------------------------
+---------------------------------
+release v-(2023.4.24)-{11.07 PM}
+CHANGES:
+    1. euclidean_distance() added
+    2. manhattan_distance() added
+    3. minkowksi_distance() added
+    4. cbrt() added
 ---------------------------------

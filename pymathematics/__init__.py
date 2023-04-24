@@ -230,6 +230,12 @@ def sqrt(number:int|float) -> float:
         flag = (flag + number/flag)/2
     return flag
 
+def cbrt(number:int|float) -> float:
+    flag = number/3
+    while absolute(flag**3 - number) > 0.0001:
+        flag = (2*flag+number/flag**2)/3
+    return flag
+
 def quadratic_roots(coefficients:list) -> list:
     if len(coefficients) != 3:
         raise ValueError("there should be only 3 coefficients!")
@@ -268,7 +274,6 @@ def log(number:int|float) -> float:
                 else:
                     right = mid
             return n+left
-
 
 def ln(number:int|float) -> int|float:
     """
@@ -428,6 +433,29 @@ def sum_array(array1:list,array2:list) -> list:
 
 def zscore(array:list,number:int) -> int|float:
     return (number-mean(array))*standard_deviation(array)
+
+def euclidean_distance(array1:list,array2:list) -> float:
+    if len(array1) < len(array2) < 3:
+        raise ValueError("arrays must have the same length and have atleast 3 coordinates both x and y")
+    return sqrt(summation([(array1[x] - array2[x])**2 for x in range(len(array1))]))
+
+def manhattan_distance(array1:list,array2:list) -> float:
+    if len(array1) < len(array2) < 3:
+        raise ValueError("arrays must have the same length and have atleast 3 coordinates both x and y")
+    return summation([absolute(array1[x] - array2[x]) for x in range(len(array1))])
+
+def camberra_distance(array1:list,array2:list) -> float:
+    if len(array1) < len(array2) < 3:
+        raise ValueError("arrays must have the same length and have atleast 3 coordinates both x and y")
+    return summation([absolute(array1[x] - array2[x])/(absolute(array1[x] + array2[x])) for x in range(len(array1))])
+
+def minkowski_distance(array1:list,array2:list,power:int|float) -> float:
+    if len(array1) < len(array2) < 3:
+        raise ValueError("arrays must have the same length and have atleast 3 coordinates both x and y")
+    distance = 0
+    for i in range(len(array1)):
+        distance += absolute(array1[i] - array2[i])**power
+    return distance**(1/power)
 
 def moving_average(array:list,steps:int) -> list:
     if steps <= 0:
