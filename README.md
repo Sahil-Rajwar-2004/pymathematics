@@ -3,6 +3,7 @@
 # Requirements
 * sympy
 
+# Installation
 * linux/macOS: `pip3 install pymathematics`
 * for windows: `pip install pymathematics`
  
