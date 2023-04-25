@@ -2,7 +2,7 @@ from setuptools import setup,find_packages
 
 setup(
     name = "pymathematics",
-    version = "2023.4.24",
+    version = "2023.4.25.1",
     description = "package for mathematics",
     long_description = "for more info, check the github repository",
     author = "Sahil Rajwar",
@@ -10,7 +10,7 @@ setup(
     author_email = "justsahilrajwar2004@gmail.com",
     packages = ["pymathematics"],
     license = "MIT",
-    install_requires = [],
+    install_requires = ["sympy"],
     url = "https://github.com/Sahil-Rajwar-2004/pymathematics",
     keywords = ["maths","mathematics"],
     classifiers = [

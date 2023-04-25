@@ -1,3 +1,5 @@
+import sympy
+
 from .info import (
     author,version,homepage
 )
@@ -41,7 +43,7 @@ class vector:
         return f"arccos({vector.dot_product(vector1,vector2)}/{(vector.magnitude(vector1)*vector.magnitude(vector2))})"
 
 class matrix:
-    def ismatrix(matrix_):
+    def ismatrix(matrix_) -> bool:
         if not isinstance(matrix_, list):
             return False
         if not all(isinstance(row, list) for row in matrix_):
@@ -50,20 +52,29 @@ class matrix:
         if not all(length == row_lengths[0] for length in row_lengths):
             return False
         return True
+
+    def ifsquare(matrix_) -> bool:
+        if not matrix.ismatrix(matrix_):
+            raise ValueError("elements of each rows aren't the same")
+        if len(matrix_) == len(matrix_[0]):
+            return True
+        return False
     
     def shape(matrix_):
-        if matrix.ismatrix(matrix_) == False:
+        if not matrix.ismatrix(matrix_):
             raise ValueError("elements of each rows aren't the same")
         return len(matrix_),len(matrix_[0])
     
     def size(matrix_):
-        if matrix.ismatrix(matrix_) == False:
+        if not matrix.ismatrix(matrix_):
             raise ValueError("elements of each rows aren't the same")
         return len(matrix_)*len(matrix_[0])
 
     def determinant(matrix_):
-        if matrix.ismatrix(matrix_) == False:
+        if not matrix.ismatrix(matrix_):
             raise ValueError("elements of each rows aren't the same")
+        if not matrix.ifsquare(matrix_):
+            raise ValueError("determinant of a matrix is only defined for square matrices")
         if len(matrix_) == 1:
             return matrix_[0][0]
         elif len(matrix_) == 2:
@@ -81,8 +92,10 @@ class matrix:
         return det
     
     def inverse(matrix_):
-        if matrix.ismatrix(matrix_) == False:
+        if not matrix.ismatrix(matrix_):
             raise ValueError("elements of each rows aren't the same")
+        if not matrix.ifsquare(matrix_):
+            raise ValueError("inverse of a matrix is only defined for square matrices")
         identity = [[0 if x != y else 1 for y in range(len(matrix_))] for x in range(len(matrix_))]
         for x in range(len(matrix_)):
             pivot = matrix_[x][x]
@@ -97,8 +110,32 @@ class matrix:
                         identity[y][k] -= factor * identity[x][k]
         return identity
     
+    def cofactor(matrix,row,col):
+        return [row[:col] + row[col+1:] for row in (matrix[:row] + matrix[row+1:])]
+
+    def adjoint(matrix_):
+        adj = []
+        for i in range(len(matrix_)):
+            adjRow = []
+            for j in range(len(matrix_)):
+                sign = (-1)**(i+j)
+                cofactor = matrix.determinant(matrix.cofactor(matrix_,i,j))
+                adjRow.append(sign*cofactor)
+            adj.append(adjRow)
+        return adj
+    
+    def trace(matrix_) -> int|float:
+        if not matrix.ismatrix(matrix_):
+            raise ValueError("elements of each rows aren't the same")
+        if not matrix.ifsquare(matrix_):
+            raise ValueError("matrix should have same number of rows and cols")
+        trace = 0
+        for x in range(len(matrix_)):
+            trace += matrix_[x][x]
+        return trace
+
     def transpose(matrix_):
-        if matrix.ismatrix(matrix_) == False:
+        if not matrix.ismatrix(matrix_):
             raise ValueError("elements of each rows aren't the same")
         rows = len(matrix_)
         cols = len(matrix_[0])
@@ -109,7 +146,7 @@ class matrix:
         return res
     
     def product(matrix1,matrix2):
-        if matrix.ismatrix(matrix1) == False or matrix.ismatrix(matrix2) == False:
+        if not matrix.ismatrix(matrix1) or not matrix.ismatrix(matrix2):
             raise ValueError("elements of each rows aren't the same")
         rows1 = len(matrix1)
         cols1 = len(matrix1[0])
@@ -178,6 +215,20 @@ class sets:
             for j in B:
                 res.append([i,j])
         return res
+    
+class calculus:
+    def integral(eqn:str,wrt:str = "x",limits:list = [None,None]):
+        if len(limits) != 2:
+            raise ValueError(f"size of the limits should be 2, not {len(limits)}")
+        expr = sympy.sympify(eqn)
+        return sympy.integrate(expr,(wrt,limits[0],limits[1]))
+    
+    def derivative(eqn:str,wrt:str = "x",point:int|float = None):
+        expr = sympy.sympify(eqn)
+        answer = sympy.diff(expr,wrt)
+        if point == None:
+            return answer
+        return float(answer.evalf(subs = {wrt:point}))
 
 def factorial(number: int) -> int:
     if number == 0:
@@ -435,7 +486,7 @@ def zscore(array:list,number:int) -> int|float:
     return (number-mean(array))*standard_deviation(array)
 
 def euclidean_distance(array1:list,array2:list) -> float:
-    if len(array1) < len(array2) < 3:
+    if len(array1) < 3 or len(array2) < 3:
         raise ValueError("arrays must have the same length and have atleast 3 coordinates both x and y")
     return sqrt(summation([(array1[x] - array2[x])**2 for x in range(len(array1))]))
 

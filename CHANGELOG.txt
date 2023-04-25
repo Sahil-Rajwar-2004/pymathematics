@@ -1,6 +1,6 @@
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-| current version-2023.4.24 |
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~+
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+| current version-2023.4.25.1 |
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 
 
 ---------------------------------
@@ -88,4 +88,16 @@ CHANGES:
     2. manhattan_distance() added
     3. minkowksi_distance() added
     4. cbrt() added
+---------------------------------
+---------------------------------
+deprecated: release v-(2023.4.25)-{6:36 PM}
+---------------------------------
+---------------------------------
+release v-(2023.4.25.1)-{7.27 PM}
+CHANGES:
+    1. calculus class added
+    2. matrix.cofactor() added
+    3. matrix.trace() added
+    4. matrix.adjoint() added
+    5. matrix.ifsquare() added
 ---------------------------------
