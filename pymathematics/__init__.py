@@ -12,8 +12,8 @@ class about:
 class constants:
     pi = 3.1415926535897932384626433832795
     e = 2.7182818284590452353602874713527
-    inf = infinity = float("inf")
-    nan = NaN = float("nan")
+    inf = float("inf")
+    nan = float("nan")
 
 class vector:
     def cross_product(vector1:list,vector2:list) -> int|float:
@@ -577,8 +577,14 @@ def slope_intercept(array1:list,array2:list) -> list:
     return [slope,intercept]
 
 def min_max(array):
-    sorted_array = quick_sort(array)
-    return [sorted_array[0],sorted_array[len(sorted_array)-1]]
+    min_val = constants.inf
+    max_val = -constants.inf
+    for x in range(len(array)):
+        if min_val > array[x]:
+            min_val = array[x]
+        if max_val < array[x]:
+            max_val = array[x]
+    return [min_val,max_val]
 
 def mean_sqrd_error(actual:list,predicted:list) -> int|float:
     if len(actual) != len(predicted):
