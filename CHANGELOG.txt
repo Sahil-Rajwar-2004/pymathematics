@@ -1,5 +1,5 @@
 +~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-| current version-2023.4.26 |
+| current version-2023.4.29 |
 +~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 
 
@@ -105,4 +105,17 @@ CHANGES:
 release v-(2023.4.26)-{9:24 PM}
 CHANGES:
     1. min_max() modified
+---------------------------------
+---------------------------------
+release v-(2023.4.29)-{2:06 PM}
+CHANGES:
+    1. scaling() added
+    2. area classes added
+    3. volume classes added
+    4. perimeter classes added
+    5. asin() added
+    6. acos() added
+    7. floor() added
+    8. ceil() added
+    9. gaussian() added
 ---------------------------------

@@ -1,3 +1,29 @@
+"""
+pymathematics
+=============
+
+Provides
+  1. fast and accurate calculations
+  2. work with vectors, matrices and sets
+  3. statistics, basic mathematics calculation
+
+  >>> from pymathematics import *
+  >>> about.version
+  ... 2023.4.28
+  >>> about.homepage
+  ... "https://github.com/Sahil-Rajwar-2004/pymathematics"
+  >>> sqrt(4)
+  ... 2.0
+  >>> constants.inf
+  ... inf
+  >>> constants.pi
+  ... 3.1415926535897932384626433832795
+  >>> constants.e
+  ... 2.7182818284590452353602874713527
+  >>> mean([1,2,3,4,5])
+  ... 5.5
+"""
+
 import sympy
 
 from .info import (
@@ -216,6 +242,95 @@ class sets:
                 res.append([i,j])
         return res
     
+class area:
+    def rectangle(length,breadth) -> int|float:
+        return length*breadth
+    
+    def square(side) -> int|float:
+        return side**2
+    
+    def trapezoid(a,b,height) -> int|float:
+        return (a+b)*height/2
+    
+    def parallelogram(breadth,height) -> int|float:
+        return breadth*height
+    
+    def triangle(base,height) -> int|float:
+        return 0.5*base*height
+    
+    def circle(radius) -> int|float:
+        return constants.pi*radius**2
+    
+    def semi_circle(radius) -> int|float:
+        return 0.5*constants.pi*radius**2
+    
+    def ellipse(minor_axis,major_axis) -> int|float:
+        return constants.pi*minor_axis*major_axis
+
+    def equilateral_triangle(side) -> int|float:
+        return sqrt(3)/4*side**2
+    
+    def sector(angle,radius) -> int|float:
+        return angle/360*constants.pi*radius**2
+    
+    def segment(angle,radius) -> int|float:
+        return area.sector(angle,radius) - area.triangle(radius,radius)
+    
+    def annulus(Radius,radius) -> int|float:
+        if radius > Radius:
+            return constants.pi*(radius-Radius)
+        return constants.pi*(Radius-radius)
+    
+    def regular_hexagon(side) -> int|float:
+        return 3*sqrt(3)/2*side**2
+    
+    def regular_octagon(side) -> int|float:
+        return 2*(1+sqrt(2))*side**2
+    
+    def sector(angle,radius) -> int|float:
+        return angle/360*constants.pi*radius**2
+    
+    def segment(angle,radius) -> int|float:
+        return 0.5*radius**2*(angle-sin(angle))
+    
+class volume:
+    def cuboid(length,breadth,height) -> int|float:
+        return length*breadth*height
+    
+    def cube(side) -> int|float:
+        return side**3
+    
+    def sphere(radius) -> int|float:
+        return (4/3)*constants.pi*radius**3
+    
+    def hemisphere(radius) -> int|float:
+        return (2/3)*constants.pi*radius**3
+    
+    def right_circular_cone(radius,height) -> int|float:
+        return (1/3)*constants.pi*radius**2*height
+    
+    def right_circular_cylinder(radius,height) -> int|float:
+        return constants.pi*radius**2*height
+    
+    def rhombus(d1,d2) -> int|float:
+        return 0.5*d1*d2
+    
+class perimeter:
+    def rectangle(length,breadth) -> int|float:
+        return 2*(length+breadth)
+    
+    def square(side) -> int|float:
+        return 4*side
+    
+    def circumference(radius) -> int|float:
+        return 2*constants.pi*radius
+    
+    def semi_circle(radius) -> int|float:
+        return constants.pi*radius
+    
+    def rhombus(side) -> int|float:
+        return 4*side
+    
 class calculus:
     def integral(eqn:str,wrt:str = "x",limits:list = [None,None]):
         if len(limits) != 2:
@@ -270,6 +385,16 @@ def absolute(number:int|float) -> int|float:
     if number < 0:
         return -1*number
     return number
+
+def floor(number:int|float) -> int:
+    if number < 0:
+        return int(number)-1
+    return int(number)
+
+def ceil(number:int|float) -> int:
+    if number < 0:
+        return int(number)
+    return int(number)+1
 
 def sqrt(number:int|float) -> float:
     if number < 0:
@@ -400,6 +525,19 @@ def sec(theta:int|float) -> float:
         raise ValueError(f"sec({theta}) isn't defined at rad({theta})")
     return 1/cos(theta)
 
+def arcsin(value:int|float) -> float:
+    if value < -1 or value > 1:
+        raise ValueError("domain error")
+    term = 0
+    for n in range(0,100):
+        term += factorial(2*n)/(factorial(n)**2*4**n*(2*n+1))*value**(2*n+1)
+    return term
+
+def arccos(value:int|float) -> float:
+    if value < -1 or value > 1:
+        raise ValueError("domain error")
+    return constants.pi/2-arcsin(value)
+
 def mean(array:list) -> int|float:
     return sum(array)/len(array)
 
@@ -420,7 +558,7 @@ def standard_deviation(array:list,kind:str = "population") -> list:
         d = len(array)
     else:
         raise ValueError(f"invalid input {kind}! input should be whether 'population' or 'sample'")
-    return sqrt(summation((i - mean(array))**2 for i in array)/(d))
+    return sqrt(summation((x - mean(array))**2 for x in array)/(d))
 
 def variance(array:list,kind:str = "population") -> int|float:
     if kind == "sample":
@@ -641,3 +779,18 @@ def cost_function(actual:list, predicted:list) -> int|float:
         raise ValueError("length of actual and predicted data aren't equal!")
     errors = [(actual[i]-predicted[i])**2 for i in range(len(actual))]
     return summation(errors)/(2*len(actual))
+
+def scaling(array:list,feature_range:tuple = (0,1)):
+    min_val = min(array)
+    max_val = max(array)
+    scaled_data = [(val - min_val)/(max_val - min_val)*(feature_range[1]-feature_range[0])+feature_range[0] for val in array]
+    return scaled_data
+
+def gaussian(array):
+    result = []
+    std_dev = standard_deviation(array)
+    m = mean(array)
+    for x in array:
+        each = (1/(std_dev*sqrt(2*constants.pi)))*exp(-((x-m)**2)/(2*(std_dev**2)))
+        result.append(each)
+    return result
