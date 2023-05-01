@@ -189,6 +189,40 @@ class matrix:
                 result[x][y] = dot_product
         return result
 
+    def multiply(matrix_,const,dimension:int = 1):
+        if 1 <= dimension <= 2:
+            if dimension == 1:
+                for x in range(len(matrix_)):
+                    matrix_[x] = matrix_[x]*const
+            elif dimension == 2:
+                for rows in matrix_:
+                    for x in range(len(rows)):
+                        rows[x] = rows[x]*const
+            else:
+                raise ValueError("capable for only 1 and 2 dimension")
+        return matrix_
+
+    def reciprocal(matrix_,dimension:int = 1):
+        if 1 <= dimension <= 2:
+            if dimension == 1:
+                for x in range(len(matrix_)):
+                    matrix_[x] = 1/matrix_[x]
+            elif dimension == 2:
+                for rows in matrix_:
+                    for x in range(len(rows)):
+                        rows[x] = 1/rows[x]
+            else:
+                raise ValueError("capable for only 1 and 2 dimension")
+        return matrix_
+
+    def remove_column(matrix_,column):
+        for rows in matrix_:
+            rows.remove(rows[column])
+        return matrix_
+    
+    def remove_row(matrix_,column):
+        return matrix_.remove(matrix_[column])
+
 class sets:
     def toset(A:list) -> list:
         new_set = []
