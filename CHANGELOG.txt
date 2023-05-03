@@ -1,6 +1,6 @@
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-| current version-2023.5.1 |
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~+
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+| current version-2023.5.3.1 |
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 
 
 ---------------------------------
@@ -126,4 +126,24 @@ CHANGES:
     2. matrix.reciprocal(matrix_,dimension = 1) added
     3. matrix.remove_column(matrix_,column) added
     4. matrix.remove_row(matrix_,row) added
+---------------------------------
+---------------------------------
+deprecated release v-(2023.5.3)-{9:31 PM}
+---------------------------------
+---------------------------------
+release v-(2023.5.3.1)-{9:56 PM}
+CHANGES:
+    1. floor(number) update
+    2. ceil(number) update
+    3. reciprocal(matrix_) update
+    4. matrix.remove_column(matrix_,col) update
+    5. matrix.remove_row(matrix_,row) update
+    6. matrix.multiply(matrix_,const) update
+    7. matrix.product(matrix1,matrix2) update
+    8. matrix.inverse(matirx_) update
+    9. matrix.cofactor(matrix_,row,col) update
+    10. matrix.adjoint(matrix_) update
+    11. matrix.trace(matrix_) update
+    12. matrix.transpose(matrix_) update
+    13. matrix.inverse(matrix_) update
 ---------------------------------
