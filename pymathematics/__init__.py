@@ -81,24 +81,24 @@ class matrix:
 
     def ifsquare(matrix_) -> bool:
         if not matrix.ismatrix(matrix_):
-            raise ValueError("elements of each rows aren't the same")
+            raise ValueError("input should be a matrix")
         if len(matrix_) == len(matrix_[0]):
             return True
         return False
     
     def shape(matrix_):
         if not matrix.ismatrix(matrix_):
-            raise ValueError("elements of each rows aren't the same")
+            raise ValueError("input should be a matrix")
         return len(matrix_),len(matrix_[0])
     
     def size(matrix_):
         if not matrix.ismatrix(matrix_):
-            raise ValueError("elements of each rows aren't the same")
+            raise ValueError("input should be a matrix")
         return len(matrix_)*len(matrix_[0])
 
     def determinant(matrix_):
         if not matrix.ismatrix(matrix_):
-            raise ValueError("elements of each rows aren't the same")
+            raise ValueError("input should be a matrix")
         if not matrix.ifsquare(matrix_):
             raise ValueError("determinant of a matrix is only defined for square matrices")
         if len(matrix_) == 1:
@@ -119,7 +119,7 @@ class matrix:
     
     def inverse(matrix_):
         if not matrix.ismatrix(matrix_):
-            raise ValueError("elements of each rows aren't the same")
+            raise ValueError("input should be a matrix")
         if not matrix.ifsquare(matrix_):
             raise ValueError("inverse of a matrix is only defined for square matrices")
         identity = [[0 if x != y else 1 for y in range(len(matrix_))] for x in range(len(matrix_))]
@@ -136,10 +136,14 @@ class matrix:
                         identity[y][k] -= factor * identity[x][k]
         return identity
     
-    def cofactor(matrix,row,col):
-        return [row[:col] + row[col+1:] for row in (matrix[:row] + matrix[row+1:])]
+    def cofactor(matrix_,row,col):
+        if not matrix.ismatrix(matrix_):
+            raise ValueError("input should be a matrix")
+        return [row[:col] + row[col+1:] for row in (matrix_[:row] + matrix_[row+1:])]
 
     def adjoint(matrix_):
+        if not matrix.ismatrix(matrix_):
+            raise ValueError("input should be a matrix")
         adj = []
         for i in range(len(matrix_)):
             adjRow = []
@@ -152,7 +156,7 @@ class matrix:
     
     def trace(matrix_) -> int|float:
         if not matrix.ismatrix(matrix_):
-            raise ValueError("elements of each rows aren't the same")
+            raise ValueError("input should be a matrix")
         if not matrix.ifsquare(matrix_):
             raise ValueError("matrix should have same number of rows and cols")
         trace = 0
@@ -162,7 +166,7 @@ class matrix:
 
     def transpose(matrix_):
         if not matrix.ismatrix(matrix_):
-            raise ValueError("elements of each rows aren't the same")
+            raise ValueError("input should be a matrix")
         rows = len(matrix_)
         cols = len(matrix_[0])
         res = [[0 for y in range(rows)]for x in range(cols)]
@@ -173,7 +177,7 @@ class matrix:
     
     def product(matrix1,matrix2):
         if not matrix.ismatrix(matrix1) or not matrix.ismatrix(matrix2):
-            raise ValueError("elements of each rows aren't the same")
+            raise ValueError("input should be a matrix")
         rows1 = len(matrix1)
         cols1 = len(matrix1[0])
         rows2 = len(matrix2)
@@ -189,39 +193,34 @@ class matrix:
                 result[x][y] = dot_product
         return result
 
-    def multiply(matrix_,const,dimension:int = 1):
-        if 1 <= dimension <= 2:
-            if dimension == 1:
-                for x in range(len(matrix_)):
-                    matrix_[x] = matrix_[x]*const
-            elif dimension == 2:
-                for rows in matrix_:
-                    for x in range(len(rows)):
-                        rows[x] = rows[x]*const
-            else:
-                raise ValueError("capable for only 1 and 2 dimension")
+    def multiply(matrix_,const):
+        if not matrix.ismatrix(matrix_):
+            raise ValueError("input should be a matrix")
+        for rows in matrix_:
+            for x in range(len(rows)):
+                rows[x] = rows[x]*const
         return matrix_
 
-    def reciprocal(matrix_,dimension:int = 1):
-        if 1 <= dimension <= 2:
-            if dimension == 1:
-                for x in range(len(matrix_)):
-                    matrix_[x] = 1/matrix_[x]
-            elif dimension == 2:
-                for rows in matrix_:
-                    for x in range(len(rows)):
-                        rows[x] = 1/rows[x]
-            else:
-                raise ValueError("capable for only 1 and 2 dimension")
+    def reciprocal(matrix_):
+        if not matrix.ismatrix(matrix_):
+            raise ValueError("input should be a matrix")
+        for rows in matrix_:
+            for x in range(len(rows)):
+                rows[x] = 1/rows[x]
         return matrix_
 
     def remove_column(matrix_,column):
+        if not matrix.ismatrix(matrix_):
+            raise ValueError("input should be a matrix")
         for rows in matrix_:
             rows.remove(rows[column])
         return matrix_
     
-    def remove_row(matrix_,column):
-        return matrix_.remove(matrix_[column])
+    def remove_row(matrix_,row):
+        if not matrix.ismatrix(matrix_):
+            raise ValueError("input should be a matrix")
+        matrix_.remove(matrix_[row])
+        return matrix_
 
 class sets:
     def toset(A:list) -> list:
@@ -421,16 +420,20 @@ def absolute(number:int|float) -> int|float:
     return number
 
 def floor(number:int|float) -> int:
+    if number == int(number):
+        return int(number)
     if number < 0:
         return int(number)-1
     return int(number)
 
 def ceil(number:int|float) -> int:
-    if number < 0:
+    if number == int(number):
         return int(number)
+    if number < 0:
+        return int(number)-1
     return int(number)+1
 
-def sqrt(number:int|float) -> float:
+def sqrt(number:int|float) -> int:
     if number < 0:
         return "undefined"
     elif number == 0:
