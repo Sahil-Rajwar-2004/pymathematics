@@ -1,6 +1,6 @@
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-| current version-2023.5.3.1 |
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
++~~~~~~~~~~~~~~~~~~~~~~~~~~+
+| current version-2023.5.6 |
++~~~~~~~~~~~~~~~~~~~~~~~~~~+
 
 
 ---------------------------------
@@ -146,4 +146,10 @@ CHANGES:
     11. matrix.trace(matrix_) update
     12. matrix.transpose(matrix_) update
     13. matrix.inverse(matrix_) update
+---------------------------------
+---------------------------------
+release v-(2023.5.6)-{11:27 PM}
+CHANGES:
+    1. temperature class added
+    2. sigmoid(number) added
 ---------------------------------

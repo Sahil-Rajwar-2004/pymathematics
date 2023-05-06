@@ -1,4 +1,4 @@
-# pymathematics v-2023.5.3.1
+# pymathematics v-2023.5.6
 
 # Requirements
 * sympy
