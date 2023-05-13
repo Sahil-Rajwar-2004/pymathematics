@@ -2,7 +2,7 @@ from setuptools import setup,find_packages
 
 setup(
     name = "pymathematics",
-    version = "2023.5.6",
+    version = "2023.5.13.1",
     description = "package for mathematics",
     long_description = "for more info, check the github repository",
     author = "Sahil Rajwar",

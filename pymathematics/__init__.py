@@ -9,7 +9,7 @@ Provides
 
   >>> from pymathematics import *
   >>> about.version
-  ... 2023.5.6
+  ... 2023.5.13.1
   >>> about.homepage
   ... "https://github.com/Sahil-Rajwar-2004/pymathematics"
   >>> sqrt(4)
@@ -188,7 +188,7 @@ class matrix:
                 adjRow.append(sign*cofactor)
             adj.append(adjRow)
         return adj
-    
+
     def trace(matrix_) -> int|float:
         if not matrix.ismatrix(matrix_):
             raise ValueError("input should be a matrix")
@@ -198,6 +198,19 @@ class matrix:
         for x in range(len(matrix_)):
             trace += matrix_[x][x]
         return trace
+
+    def diagonal_sum(matrix_) -> int|float:
+        if not matrix.ismatrix(matrix_):
+            raise ValueError("input should be a matrix")
+        if not matrix.ifsquare(matrix_):
+            raise ValueError("matrix should have same number of rows and cols")
+        total = 0
+        for x in range(len(matrix_)):
+            total += matrix_[x][x]
+            total += matrix_[len(matrix_)-x-1][x]
+        if len(matrix_)%2 != 0:
+            total -= matrix_[int(len(matrix_)/2)][int(len(matrix_)/2)]
+        return total
 
     def transpose(matrix_):
         if not matrix.ismatrix(matrix_):
